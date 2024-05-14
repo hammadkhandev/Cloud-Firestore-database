@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                                     borderRadius: BorderRadius.circular(8),
                                     color: Colors.deepPurple.shade200.withOpacity(.5),
                                   ),
-                                  child: Text("${document["task"][0].toString().toUpperCase()}",
+                                  child: Text("${document["task"].toString().isEmpty?"✒": document["task"][0].toString().toUpperCase()}",
                                     style: TextStyle(fontSize: 24,color: Colors.white),),
                                   alignment: Alignment.center),
                               title: Text(document["task"]),
@@ -62,10 +62,18 @@ class _HomePageState extends State<HomePage> {
                                   document["update_time"].toString().isEmpty
                                   ? document["time"].toString().toTimeParse()
                                   : document["update_time"].toString().toTimeParse()),
-                              trailing: IconButton(onPressed: (){
-                                ///delete Function
-                                fireStore.collection("tasks").doc(document.id).delete();
-                              }, icon: const Icon(Icons.delete)),
+                              trailing: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(onPressed: (){
+                                    ///delete Function
+                                    fireStore.collection("tasks").doc(document.id).delete();
+                                  },
+                                      icon: const Icon(Icons.delete)),
+                                  SizedBox(width: 24,)
+                                ],
+                              ),
                             ),
                           ),
                         );
