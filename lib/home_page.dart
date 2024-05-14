@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                                     fireStore.collection("tasks").doc(document.id).delete();
                                   },
                                       icon: const Icon(Icons.delete)),
-                                  SizedBox(width: 24,)
+                                  const SizedBox(width: 24,)
                                 ],
                               ),
                             ),
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                 if (snapshot.hasError){
                   return const Center(child: Text("Something went wrong"));
                 }
-                  return  Center(child: CircularProgressIndicator());
+                  return  const Center(child: CircularProgressIndicator());
               },
             ),
           ],
@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
-              title: isUpdate? Text("Edit todo") : Text("Add todo"),
+              title: isUpdate? const Text("Edit todo") : const Text("Add todo"),
               content: Form(
                 key: formKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -146,8 +146,8 @@ class _HomePageState extends State<HomePage> {
                       Navigator.of(context).pop();
                     },
                     child:isUpdate
-                    ?Text("Save")
-                    :Text("Add"),
+                    ?const Text("Save")
+                    :const Text("Add"),
                 )
               ],
             ));
