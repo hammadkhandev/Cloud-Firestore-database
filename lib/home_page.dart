@@ -88,8 +88,6 @@ class _HomePageState extends State<HomePage> {
 
   void showdailog(bool isUpdate, DocumentSnapshot? document) {
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
-    Map<String,dynamic> e = document!.data() as Map<String,dynamic>;
-    print(e["task"].toString()+ 'aaaa');
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -98,9 +96,6 @@ class _HomePageState extends State<HomePage> {
                 key: formKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: TextFormField(
-                  initialValue: isUpdate
-                      ? e["task"].toString()
-                      : "",
                   autofocus: true,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
