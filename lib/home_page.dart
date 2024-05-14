@@ -53,9 +53,12 @@ class _HomePageState extends State<HomePage> {
                                     borderRadius: BorderRadius.circular(8),
                                     color: Colors.deepPurple.shade200.withOpacity(.5),
                                   ),
-                                  child: Text("${document["task"].toString().isEmpty?"✒": document["task"][0].toString().toUpperCase()}",
-                                    style: TextStyle(fontSize: 24,color: Colors.white),),
-                                  alignment: Alignment.center),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    document["task"].toString().isEmpty
+                                      ? "✒"
+                                      : document["task"][0].toString().toUpperCase(),
+                                    style: const TextStyle(fontSize: 24,color: Colors.white),)),
                               title: Text(document["task"]),
                               subtitle: Text(
                                   /// use simple if else statement : (condition) ? <String>: <String>
