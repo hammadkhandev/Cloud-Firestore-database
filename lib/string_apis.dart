@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
     String day = DateTime.parse(this).day.toString();
     String month = DateTime.parse(this).month.toString();
     String year = DateTime.parse(this).year.toString();
-    return " $hours:$minute  $a \n  $day/$month/$year ";
+    return " $hours:$minute  $a \n$day/$month/$year ";
   }
   }
 

@@ -57,7 +57,11 @@ class _HomePageState extends State<HomePage> {
                                     style: TextStyle(fontSize: 24,color: Colors.white),),
                                   alignment: Alignment.center),
                               title: Text(document["task"]),
-                              subtitle: Text("${document["time"].toString().toTimeParse()}"),
+                              subtitle: Text(
+                                  /// use simple if else statement : (condition) ? <String>: <String>
+                                  document["update_time"].toString().isEmpty
+                                  ? document["time"].toString().toTimeParse()
+                                  : document["update_time"].toString().toTimeParse()),
                               trailing: IconButton(onPressed: (){
                                 ///delete Function
                                 fireStore.collection("tasks").doc(document.id).delete();
@@ -88,14 +92,16 @@ class _HomePageState extends State<HomePage> {
 
   void showdailog(bool isUpdate, DocumentSnapshot? document) {
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
+    Map<String, dynamic> title = document == null ? {}: document.data() as Map<String, dynamic>;
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
-              title: isUpdate?Text("Edit todo") : Text("Add todo"),
+              title: isUpdate? Text("Edit todo") : Text("Add todo"),
               content: Form(
                 key: formKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: TextFormField(
+                  initialValue: title.isNotEmpty? title["task"]:"",
                   autofocus: true,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -117,17 +123,21 @@ class _HomePageState extends State<HomePage> {
                       if(isUpdate){
                         fireStore.collection("tasks").doc(document!.id).update({
                           "task":task,
-                          "time": DateTime.now().toIso8601String(),
+                          "update_time": DateTime.now().toIso8601String(),
                         });
                       }
-                      else{fireStore.collection("tasks").add(
-                          {"task": task,
-                            "time": DateTime.now().toIso8601String(),
+                      else{fireStore.collection("tasks").add({
+                        "task": task,
+                        "time": DateTime.now().toIso8601String(),
+                        "update_time": "",
                           }
                       );}
                       Navigator.of(context).pop();
                     },
-                    child: const Text("add"))
+                    child:isUpdate
+                    ?Text("Save")
+                    :Text("Add"),
+                )
               ],
             ));
   }
